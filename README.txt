@@ -1,4 +1,4 @@
-Driver for vibrating / shocking butt. 
+Driver for vibrating / shocking butt plug. 
 
 Device Specifications:
 * Two sizes:
