@@ -17,7 +17,7 @@
 //
 void ButtPlug::begin(char pin) {
 	radiopin = pin;
-	zaplvl	 = viblvl = -2;	// Uninitialised
+	zaplevel = viblevel = -2;	// Uninitialised
 	kalv	 = KALV_TICK;
 	seq	 = 0;
 	pinMode(radiopin, OUTPUT);
@@ -66,7 +66,7 @@ void ButtPlug::command(unsigned char code, char count) {
 // 10:   1 sec short-short-short-long pulses
 //
 void ButtPlug::vib(char lvl) {
-	char curr = viblvl;
+	char curr = viblevel;
 	DEBUG(	Serial.print("Vib level: ");
 		Serial.print((int) curr);
 		Serial.print(" -> ");
@@ -74,7 +74,7 @@ void ButtPlug::vib(char lvl) {
 	if(lvl == curr) return;
 	if(lvl < 0 || lvl > 10)
 		lvl = 0;
-	viblvl = lvl;
+	viblevel = lvl;
 	if(lvl > curr && curr >= 0) 
 		lvl -= curr;
 	else	command(BUTTPLUG_VIBOFF);
@@ -89,7 +89,7 @@ void ButtPlug::vib(char lvl) {
 //  1-6: set shock intsensity, 1=low, 6=high
 //
 void ButtPlug::zap(char lvl) {
-	char curr = zaplvl;
+	char curr = zaplevel;
 	DEBUG(	Serial.print("Zap level: ");
 		Serial.print((int) curr);
 		Serial.print(" -> ");
@@ -97,7 +97,7 @@ void ButtPlug::zap(char lvl) {
 	if(lvl == curr) return;
 	if(lvl < 0 || lvl > 6)
 		lvl = 0;
-	zaplvl = lvl;
+	zaplevel = lvl;
 	if(lvl > curr && curr >= 0) 
 		lvl -= curr;
 	else	command(BUTTPLUG_ZAPOFF);
@@ -109,10 +109,10 @@ void ButtPlug::zap(char lvl) {
 // Power off plug
 //
 void ButtPlug::off(void) {
-	char curr = zaplvl;
+	char curr = zaplevel;
 	DEBUG(	Serial.println("Power off"); )
 	command(BUTTPLUG_PWROFF);
-	zaplvl = viblvl = -2;
+	zaplevel = viblevel = -2;
 }
 
 
@@ -126,7 +126,7 @@ void ButtPlug::keepalive(void) {
 		kalv = k;
 		DEBUG(	Serial.print("Keepalive k=");
 			Serial.println((int) k); )
-		if(viblvl <= 0 && zaplvl <= 0) {
+		if(viblevel <= 0 && zaplevel <= 0) {
 			command(BUTTPLUG_VIB);
 			command(BUTTPLUG_VIBOFF);
 		}
