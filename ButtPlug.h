@@ -30,12 +30,12 @@
 class ButtPlug {
 private:
 	char radiopin;		// Output pin
-	char zaplvl;		// Current zap level
-	char viblvl;		// Current vibrator level
 	unsigned char seq;	// Command sequence number
 	unsigned char kalv;	// Keepalive timer
 
 public:
+	char zaplevel;		// Current zap level
+	char viblevel;		// Current vibrator level
 	void begin(char pin);	// Initialise
 	void command(unsigned char code, char count);
 				// Send low-level command. Note: does not
